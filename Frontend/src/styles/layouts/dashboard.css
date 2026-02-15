@@ -17,7 +17,7 @@
   margin-left: 280px;
   padding: var(--spacing-lg);
   background: var(--bg-primary);
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 72px - 80px); /* Subtract header and footer height */
   transition: margin-left var(--transition);
 }
 
@@ -62,7 +62,7 @@
   .main-content {
     margin-left: 0;
     padding: var(--spacing);
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 64px - 80px); /* Subtract header and footer height */
   }
   
   .sidebar-overlay {
