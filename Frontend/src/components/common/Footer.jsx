@@ -58,7 +58,7 @@ export default function Footer(){
                 © 2024 CampusConnect. All rights reserved.
               </p>
               <p className="footer-credits">
-                Created with ❤️ by Kavish
+                Created with ❤️ by Kavish , Tirth
               </p>
             </div>
             
