@@ -31,7 +31,7 @@ export default function Landing(){
           </div>
           <div className="cluster-center">
             <Link to="/login" className="btn btn-primary">Sign In to Continue</Link>
-            <Link to="/register" className="btn btn-secondary">Create Account</Link>
+            <Link to="/signup" className="btn btn-secondary">Create Account</Link>
           </div>
         </div>
       </div>

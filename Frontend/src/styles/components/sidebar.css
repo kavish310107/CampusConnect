@@ -1,10 +1,10 @@
 /* Sidebar Component Styles */
 .sidebar {
-  position: fixed;
+  position: sticky;
   top: 104px;
   left: 0;
   width: 280px;
-  height: calc(100vh - 10px - 85px); /* Subtract footer height */
+  height: calc(100vh - 104px);
   background: var(--bg-card);
   border-right: 1px solid var(--border);
   display: flex;
@@ -208,7 +208,7 @@
 @media (max-width: 1024px) {
   .sidebar {
     width: 260px;
-    height: calc(100vh - 72px - 80px); /* Subtract header and footer height */
+    height: calc(100vh - 72px);
   }
 }
 
@@ -216,7 +216,7 @@
   .sidebar {
     transform: translateX(-100%);
     top: 64px;
-    height: calc(100vh - 64px - 80px); /* Subtract footer height */
+    height: calc(100vh - 64px);
   }
   
   .sidebar.open {
