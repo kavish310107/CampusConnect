@@ -14,7 +14,7 @@
 
 .main-content {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 295px;
   padding: var(--spacing-lg);
   background: var(--bg-primary);
   min-height: calc(100vh - 72px - 80px); /* Subtract header and footer height */
@@ -25,6 +25,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
+  width: 100%;
 }
 
 /* Sidebar Overlay for Mobile */
@@ -50,7 +51,7 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
   .main-content {
-    margin-left: 260px;
+    margin-left: 275px;
   }
 }
 

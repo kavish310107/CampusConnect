@@ -104,12 +104,6 @@ export default function StudentDashboard(){
             Here's what's happening on campus today. Stay updated with the latest announcements and events.
           </p>
         </div>
-        <div className="page-actions">
-          <button className="btn btn-primary">
-            <FiBookOpen />
-            Explore Clubs
-          </button>
-        </div>
       </div>
 
       {/* Stats Grid */}

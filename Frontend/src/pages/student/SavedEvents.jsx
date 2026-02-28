@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { listSavedEvents, saveItem } from '../../api/saved';
 import EventCard from '../../components/cards/EventCard';
 import { FiBookmark, FiInbox, FiSearch, FiFilter, FiCalendar } from 'react-icons/fi';
+import { Link } from 'react-router-dom'
 
 export default function SavedEvents(){
   const { token } = useAuth();
@@ -187,12 +188,7 @@ export default function SavedEvents(){
                   Start saving events that interest you to build your personal calendar of campus activities.
                 </p>
                 <div className="empty-state-actions">
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => window.history.back()}
-                  >
-                    Browse Events
-                  </button>
+                  <Link to='/dashboard/student' className="btn btn-primary">Browse Events</Link>
                 </div>
               </div>
             </div>

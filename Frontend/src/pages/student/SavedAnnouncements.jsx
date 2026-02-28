@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { listSavedAnnouncements, saveItem } from '../../api/saved';
 import AnnouncementCard from '../../components/cards/AnnouncementCard';
 import { FiBookmark, FiInbox, FiSearch, FiFilter } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 export default function SavedAnnouncements(){
   const { token } = useAuth();
@@ -127,12 +128,13 @@ export default function SavedAnnouncements(){
               </p>
               {!searchTerm && filterType === 'all' && (
                 <div className="empty-state-actions">
-                  <button 
-                    className="btn btn-primary"
+                  {/* <button 
+                    
                     onClick={() => window.history.back()}
                   >
-                    Browse Announcements
-                  </button>
+                    
+                  </button> */}
+                  <Link to='/dashboard/student' className="btn btn-primary">Browse Announcements</Link>
                 </div>
               )}
             </div>

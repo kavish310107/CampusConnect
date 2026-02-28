@@ -141,6 +141,7 @@
   .main-content {
     margin-left: 0;
     padding: var(--spacing-sm);
+    max-width: 100%;
   }
   
   .app-layout {
@@ -325,6 +326,8 @@
   
   .main-content {
     margin-left: 0;
+    padding: var(--spacing);
+    max-width: 100%;
   }
   
   .app-layout {
@@ -355,7 +358,9 @@
   }
   
   .main-content {
-    margin-left: 260px;
+    margin-left: 275px;
+    padding: var(--spacing-lg);
+    max-width: calc(100% - 275px);
   }
   
   .form-row {
@@ -390,7 +395,9 @@
   }
   
   .main-content {
-    margin-left: 280px;
+    margin-left: 295px;
+    padding: var(--spacing-lg);
+    max-width: calc(100% - 295px);
   }
   
   .auth-card {
@@ -421,7 +428,9 @@
   }
   
   .main-content {
-    margin-left: 300px;
+    margin-left: 315px;
+    padding: var(--spacing-xl);
+    max-width: calc(100% - 315px);
   }
   
   .auth-card {
