@@ -128,12 +128,6 @@ export default function SavedAnnouncements(){
               </p>
               {!searchTerm && filterType === 'all' && (
                 <div className="empty-state-actions">
-                  {/* <button 
-                    
-                    onClick={() => window.history.back()}
-                  >
-                    
-                  </button> */}
                   <Link to='/dashboard/student' className="btn btn-primary">Browse Announcements</Link>
                 </div>
               )}
