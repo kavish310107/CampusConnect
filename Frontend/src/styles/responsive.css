@@ -358,7 +358,7 @@
   }
   
   .main-content {
-    margin-left: 275px;
+    margin-left: 30px;
     padding: var(--spacing-lg);
     max-width: calc(100% - 275px);
   }
@@ -395,7 +395,7 @@
   }
   
   .main-content {
-    margin-left: 295px;
+    margin-left: 30px;
     padding: var(--spacing-lg);
     max-width: calc(100% - 295px);
   }
@@ -428,7 +428,7 @@
   }
   
   .main-content {
-    margin-left: 315px;
+    margin-left: 30px;
     padding: var(--spacing-xl);
     max-width: calc(100% - 315px);
   }
