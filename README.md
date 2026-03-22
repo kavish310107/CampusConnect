@@ -9,7 +9,9 @@
 
 CampusConnect is a smart college hub and event management system designed to cut through the noise, acting as the definitive single-source dashboard for campus life. It brings together every important update—official announcements, academic deadlines, club meetings, workshops, competitions, and career opportunities—into one cohesive and intuitive platform so students never have to hunt across multiple channels again.
 
-Instead of scattered emails, notice boards, and group chats, CampusConnect centralizes all campus communication in real time. Students can view a personalized feed tailored to their courses, interests, and clubs, ensuring they only see what matters most to them. Faculty and administrators gain a streamlined way to publish verified announcements, schedule events, and reach the right audience instantly, while organizers can manage registrations, reminders, and attendance from a single interface.
+Instead of scattered emails, notice boards, and group chats, CampusConnect centralizes all campus communication in real time. 
+Students receive a personalized dashboard experience, where announcements are intelligently filtered based on the clubs they have joined, ensuring they only see relevant club updates while still staying informed about general and institutional announcements. This targeted visibility reduces clutter and makes information consumption far more efficient. 
+Faculty and administrators gain a streamlined way to publish verified announcements, schedule events, and reach the right audience instantly, while organizers can manage registrations, reminders, and attendance from a single interface.
 
 The platform also enhances engagement by helping students discover opportunities they might otherwise miss—guest lectures, hackathons, networking sessions, internships, and campus drives—through smart recommendations and timely notifications. CampusConnect transforms campus life from fragmented and overwhelming into organized and accessible.
 
