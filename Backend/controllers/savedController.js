@@ -115,7 +115,7 @@ async function listSavedAnnouncements(req, res){
     if (!ids.length) return res.json([]);
     const { data, error } = await supabase
       .from('announcements')
-      .select('id,title,description,type,created_at')
+      .select('id,title,description,type,created_at,club_name')
       .in('id', ids);
     if (error) return res.status(500).json({ error: error.message });
     const byId = new Map((data || []).map(a => [a.id, a]));

@@ -9,10 +9,10 @@ export default function Landing(){
     <PublicLayout>
       <div className="container stack-lg text-center">
         <h1 style={{color:'#4576FF'}}>Welcome to CampusConnect</h1>
-        <p className="text-muted"><h3>This is your digital hub for campus life</h3></p>
+        <h3 className="text-muted">This is your digital hub for campus life</h3>
         <div className="card p-lg stack-lg">
-          <p className="text-md"><h3>Discover announcements, join clubs, find events, and connect with your campus community all in one place.</h3></p>
-          <div className="grid grid-3-cols" style={{display:'flex',flexDirection:'row',justifyContent:'space-around',marginBottom:'50px'}}>
+          <h3 className="text-md">Discover announcements, join clubs, find events, and connect with your campus community all in one place.</h3>
+          <div className="grid grid-3-cols" style={{display:'flex',flexDirection:'row',justifyContent:'space-around',marginBottom:'50px',flexWrap:'wrap',gap:'2rem'}}>
             <div className="stack-sm align-center">
               <MegaphoneIcon width={48} height={48} className="text-primary" />
               <p className="text-bold">Announcements</p>
@@ -26,7 +26,7 @@ export default function Landing(){
             <div className="stack-sm align-center">
               <ClubsIcon width={48} height={48} className="text-primary" />
               <p className="text-bold">Clubs</p>
-              <p className="text-sm text-muted">Connect & grow</p>
+              <p className="text-sm text-muted">Join communities</p>
             </div>
           </div>
           <div className="cluster-center">

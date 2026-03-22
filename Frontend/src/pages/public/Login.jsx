@@ -46,7 +46,7 @@ export default function Login(){
         <div className="auth-card">
           <div className="auth-header">
             <div className="auth-logo">
-              <img src={logo} alt="CampusConnect Logo" style={{height:'80px',width:'80px'}} />
+              <img src={logo} alt="CampusConnect Logo" style={{height:'60px',width:'60px'}} />
             </div>
             <h1 className="auth-title">Welcome Back</h1>
             <p className="auth-subtitle">Sign in to your CampusConnect account</p>

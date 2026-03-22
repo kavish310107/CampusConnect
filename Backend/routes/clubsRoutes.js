@@ -1,7 +1,7 @@
 import express from 'express';
 import auth from '../modules/authMiddleware.js';
 import authorize from '../modules/authorize.js';
-import { listClubs, listClubsWithStatus, createClub, joinClub, getPendingRequests, updateUserClubStatus, getClubMembers, updateUserClubStatusV2 } from '../controllers/clubsController.js';
+import { listClubs, listClubsWithStatus, createClub, joinClub, getPendingRequests, updateUserClubStatus, getClubMembers, updateUserClubStatusV2, getJoinedClubs } from '../controllers/clubsController.js';
 
 const router = express.Router();
 
@@ -10,6 +10,9 @@ router.get('/list', listClubs);
 
 //get the list of all clubs with membership status for the logged in user
 router.get('/list-with-status', auth, listClubsWithStatus);
+
+//get the list of clubs joined by the logged in student
+router.get('/joined', auth, getJoinedClubs);
 
 //create a new club, only doable by admin
 router.post('/create', auth, authorize(['admin']), createClub);

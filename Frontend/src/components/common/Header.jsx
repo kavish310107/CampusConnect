@@ -14,6 +14,10 @@ export default function Header() {
     setIsProfileOpen(false);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -21,18 +25,27 @@ export default function Header() {
           <Link to="/" className="brand">
             <div className="brand-logo">
               <div className="logo-icon">
-                <img src={logo} alt='logo' style={{height:'70px',width:'70px'}}></img>
+                <img src={logo} alt='logo' style={{height:'50px',width:'50px'}}></img>
               </div>
               <span className="brand-text"><h2>CampusConnect</h2></span>
             </div>
           </Link>
 
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <FiX /> : <FiMenu />}
+          </button>
+
           {/* User Actions */}
-          <div className="header-actions">
+          <div className={`header-actions ${isMenuOpen ? 'mobile-open' : ''}`}>
             {!isAuthenticated ? (
               <div className="auth-buttons">
-                <Link to="/login" className="btn btn-ghost">Sign In</Link>
-                <Link to="/signup" className="btn btn-primary">Get Started</Link>
+                <Link to="/login" className="btn btn-ghost" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                <Link to="/signup" className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
               </div>
             ) : (
               <div className="user-menu">
@@ -61,6 +74,13 @@ export default function Header() {
                       </div>
                     </div>
                     <div className="dropdown-divider"></div>
+                    <Link 
+                      to={`/dashboard/${user?.role === 'admin' ? 'admin' : user?.role === 'faculty' ? 'faculty' : 'student'}`} 
+                      className="dropdown-item"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <FiHome /> Dashboard
+                    </Link>
                     <Link 
                       to={`/dashboard/${user?.role}/profile`} 
                       className="dropdown-item"

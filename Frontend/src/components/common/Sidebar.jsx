@@ -9,10 +9,11 @@ import {
   FiPlusCircle, 
   FiSettings,
   FiMessageSquare,
-  FiTrendingUp
+  FiTrendingUp,
+  FiX
 } from 'react-icons/fi';
 
-export default function Sidebar(){
+export default function Sidebar({ isOpen, onClose }){
   const { user } = useAuth();
   const { pathname } = useLocation();
 
@@ -53,7 +54,7 @@ export default function Sidebar(){
   };
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <div className="user-info">
           <div className="user-avatar">
@@ -64,6 +65,13 @@ export default function Sidebar(){
             <div className="user-role-badge">{user?.role}</div>
           </div>
         </div>
+        <button 
+          className="sidebar-close"
+          onClick={onClose}
+          aria-label="Close sidebar"
+        >
+          <FiX />
+        </button>
       </div>
 
       <nav className="sidebar-nav">

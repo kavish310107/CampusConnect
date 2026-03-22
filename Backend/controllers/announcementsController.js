@@ -63,6 +63,11 @@ async function createAnnouncement(req, res) {
       created_by: req.user.userId,
     };
 
+    // Add club_name for admin-created club announcements
+    if (role === 'admin' && type === 'Club' && body.club_name !== undefined) {
+      data.club_name = body.club_name;
+    }
+
     const inserted = await insertDynamic('announcements', data);
     return res.status(201).json(inserted);
   } catch (err) {
@@ -71,4 +76,66 @@ async function createAnnouncement(req, res) {
   }
 }
 
-export { listAnnouncements, createAnnouncement };
+// Get filtered announcements for students (club announcements only from joined clubs)
+async function getStudentFilteredAnnouncements(req, res) {
+  try {
+    if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+    if (req.user.role !== 'student') return res.status(403).json({ error: 'Forbidden' });
+    
+    const userId = req.user.userId;
+    
+    // Get student's joined clubs
+    const { data: joinedClubs, error: clubsError } = await supabase
+      .from('user_clubs')
+      .select('club_id')
+      .eq('user_id', userId)
+      .eq('status', 'approved');
+    
+    if (clubsError) return res.status(500).json({ error: clubsError.message });
+    
+    const clubIds = (joinedClubs || []).map(item => item.club_id);
+    
+    // Get announcements: non-club announcements OR club announcements from joined clubs
+    let data = [];
+    
+    if (clubIds.length > 0) {
+      // Student has joined clubs: get both non-club announcements and club announcements from joined clubs
+      const [nonClubAnnouncements, clubAnnouncements] = await Promise.all([
+        // Get all non-club announcements
+        supabase
+          .from('announcements')
+          .select('id,title,description,type,created_at,club_name')
+          .neq('type', 'Club')
+          .order('created_at', { ascending: false }),
+        // Get club announcements from joined clubs
+        supabase
+          .from('announcements')
+          .select('id,title,description,type,created_at,club_name')
+          .eq('type', 'Club')
+          .in('club_id', clubIds)
+          .order('created_at', { ascending: false })
+      ]);
+      
+      // Combine and sort by date
+      data = [...(nonClubAnnouncements.data || []), ...(clubAnnouncements.data || [])]
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    } else {
+      // Student has no joined clubs: show only non-club announcements
+      const { data: nonClubAnnouncements, error } = await supabase
+        .from('announcements')
+        .select('id,title,description,type,created_at,club_name')
+        .neq('type', 'Club')
+        .order('created_at', { ascending: false });
+      
+      if (error) return res.status(500).json({ error: error.message });
+      data = nonClubAnnouncements || [];
+    }
+    
+    return res.json(data || []);
+  } catch (err) {
+    console.error('getStudentFilteredAnnouncements error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export { listAnnouncements, createAnnouncement, getStudentFilteredAnnouncements };

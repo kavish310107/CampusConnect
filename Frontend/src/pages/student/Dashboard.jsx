@@ -1,6 +1,6 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useAuth } from '../../contexts/AuthContext';
-import { listAnnouncements } from '../../api/announcements';
+import { getFilteredAnnouncements } from '../../api/student';
 import { listEvents } from '../../api/events';
 import { useEffect, useState } from 'react';
 import AnnouncementCard from '../../components/cards/AnnouncementCard';
@@ -20,7 +20,7 @@ export default function StudentDashboard(){
   useEffect(() => {
     (async () => {
       try{
-        const [a, e, saved] = await Promise.all([listAnnouncements(), listEvents(), listSaved(token)]);
+        const [a, e, saved] = await Promise.all([getFilteredAnnouncements(token), listEvents(), listSaved(token)]);
         setAnns(a); setEvents(e);
         // Build sets for quick lookup
         const sa = new Set();
@@ -108,23 +108,45 @@ export default function StudentDashboard(){
 
       {/* Stats Grid */}
       <div className="stats-grid">
-        {stats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <div key={index} className="stat-card">
-              <div className="stat-icon">
-                <Icon />
-              </div>
-              <div className="stat-content">
-                <div className="stat-value">{stat.value}</div>
-                <div className="stat-label">{stat.title}</div>
-                <div className={`stat-change ${stat.changeType}`}>
-                  {stat.change}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FiTrendingUp />
+          </div>
+          <div className="stat-content">
+            <div className="stat-number">{anns.length}</div>
+            <div className="stat-label">Announcements</div>
+          </div>
+        </div>
+        
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FiCalendar />
+          </div>
+          <div className="stat-content">
+            <div className="stat-number">{events.length}</div>
+            <div className="stat-label">Upcoming Events</div>
+          </div>
+        </div>
+        
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FiBookmark />
+          </div>
+          <div className="stat-content">
+            <div className="stat-number">{savedAnns.size + savedEvents.size}</div>
+            <div className="stat-label">Saved Items</div>
+          </div>
+        </div>
+        
+        <div className="stat-card">
+          <div className="stat-icon">
+            <FiUsers />
+          </div>
+          <div className="stat-content">
+            <div className="stat-number">12</div>
+            <div className="stat-label">Active Clubs</div>
+          </div>
+        </div>
       </div>
 
       {loading && (
@@ -155,11 +177,6 @@ export default function StudentDashboard(){
               Stay informed with important updates from your department and faculty
             </p>
           </div>
-          <div className="section-actions">
-            <button className="btn btn-ghost btn-sm">
-              View All
-            </button>
-          </div>
         </div>
         
         {anns.length === 0 && !loading ? (
@@ -169,17 +186,17 @@ export default function StudentDashboard(){
             </div>
             <h3 className="empty-state-title">No announcements yet</h3>
             <p className="empty-state-description">
-              Check back later for the latest announcements from your campus.
+              Check back later for new announcements from your clubs and faculty.
             </p>
           </div>
         ) : (
-          <div className="grid grid-auto">
-            {anns.slice(0, 6).map(a => (
+          <div className="announcements-grid">
+            {anns.map(item => (
               <AnnouncementCard 
-                key={a.id} 
-                item={a} 
-                onSave={onSaveAnnouncement} 
-                saved={savedAnns.has(a.id)} 
+                key={item.id} 
+                item={item}
+                isSaved={savedAnns.has(item.id)}
+                onSave={() => onSaveAnnouncement(item)}
               />
             ))}
           </div>
@@ -195,11 +212,6 @@ export default function StudentDashboard(){
               Discover and participate in exciting campus events and activities
             </p>
           </div>
-          <div className="section-actions">
-            <button className="btn btn-ghost btn-sm">
-              View All
-            </button>
-          </div>
         </div>
         
         {events.length === 0 && !loading ? (
@@ -209,17 +221,17 @@ export default function StudentDashboard(){
             </div>
             <h3 className="empty-state-title">No upcoming events</h3>
             <p className="empty-state-description">
-              Stay tuned for exciting events and activities on campus.
+              Stay tuned for exciting events coming soon!
             </p>
           </div>
         ) : (
-          <div className="grid grid-auto">
-            {events.slice(0, 6).map(ev => (
+          <div className="events-grid">
+            {events.map(item => (
               <EventCard 
-                key={ev.id} 
-                item={ev} 
-                onSave={onSaveEvent} 
-                saved={savedEvents.has(ev.id)} 
+                key={item.id} 
+                item={item}
+                isSaved={savedEvents.has(item.id)}
+                onSave={() => onSaveEvent(item)}
               />
             ))}
           </div>

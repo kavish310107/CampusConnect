@@ -1,14 +1,28 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import TextInput from '../../components/forms/TextInput';
 import SelectInput from '../../components/forms/SelectInput';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { createAnnouncement } from '../../api/announcements';
+import { listClubs } from '../../api/clubs';
 
 export default function CreateAnnouncement(){
   const { token, user } = useAuth();
   const [form, setForm] = useState({ title:'', description:'', type:'Academic', department:'', club_id:'' });
   const [status, setStatus] = useState({ loading:false, error:'', ok:false });
+  const [clubs, setClubs] = useState([]);
+
+  useEffect(() => {
+    const fetchClubs = async () => {
+      try {
+        const clubsData = await listClubs();
+        setClubs(clubsData || []);
+      } catch (error) {
+        console.error('Failed to fetch clubs:', error);
+      }
+    };
+    fetchClubs();
+  }, []);
 
   const update = (k,v)=> setForm(f=>({ ...f, [k]: v }));
 
@@ -16,12 +30,21 @@ export default function CreateAnnouncement(){
     e.preventDefault(); 
     setStatus({ loading:true, error:'', ok:false });
     try{
+      // Club IDs are UUID strings, not numbers
+      const selectedClub = clubs.find(club => club.id === form.club_id);
+      
       const payload = {
         title: form.title,
         description: form.description,
         type: form.type,
-        club_id: form.type === 'Club' ? Number(form.club_id) || undefined : undefined,
+        club_id: form.type === 'Club' ? form.club_id : undefined,
       };
+      
+      // Add club_name only for admin-created club announcements
+      if (form.type === 'Club' && user?.role === 'admin' && selectedClub) {
+        payload.club_name = selectedClub.name;
+      }
+      
       const ok = await createAnnouncement(token, payload);
       setStatus({ loading:false, error: ok ? '' : 'Failed to create announcement', ok });
       if (ok) setForm({ title:'', description:'', type:'Academic', department:'', club_id:'' });
@@ -42,7 +65,19 @@ export default function CreateAnnouncement(){
           {user?.role === 'admin' && <option value="Club">Club</option>}
         </SelectInput>
         {form.type === 'Club' && (
-          <TextInput label="Club ID" value={form.club_id} onChange={e=>update('club_id', e.target.value)} required />
+          <SelectInput 
+            label="Club" 
+            value={form.club_id} 
+            onChange={e=>update('club_id', e.target.value)} 
+            required
+          >
+            <option value="">Select a Club</option>
+            {clubs.map(club => (
+              <option key={club.id} value={club.id}>
+                {club.name}
+              </option>
+            ))}
+          </SelectInput>
         )}
         <button className="btn" type="submit" disabled={status.loading}>{status.loading? 'Submitting...' : 'Submit'}</button>
       </form>

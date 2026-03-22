@@ -259,4 +259,25 @@ async function updateUserClubStatusV2(req, res) {
   }
 }
 
-export { listClubs, listClubsWithStatus, createClub, joinClub, getPendingRequests, updateUserClubStatus, getClubMembers, updateUserClubStatusV2 };
+// Get clubs joined by the logged-in student
+async function getJoinedClubs(req, res) {
+  try {
+    if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+    const userId = req.user.userId;
+    
+    const { data, error } = await supabase
+      .from('user_clubs')
+      .select('club_id')
+      .eq('user_id', userId)
+      .eq('status', 'approved');
+    
+    if (error) return res.status(500).json({ error: error.message });
+    
+    const clubIds = (data || []).map(item => item.club_id);
+    return res.json(clubIds);
+  } catch (err) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export { listClubs, listClubsWithStatus, createClub, joinClub, getPendingRequests, updateUserClubStatus, getClubMembers, updateUserClubStatusV2, getJoinedClubs };

@@ -19,6 +19,9 @@ export default function AnnouncementCard({ item, onSave, saved }){
             <FiTag />
             {item.type || 'Announcement'}
           </span>
+          {item.club_name && item.type === 'Club' && (
+            <span className="card-club">{item.club_name}</span>
+          )}
           {item.department && (
             <span className="card-department">{item.department}</span>
           )}
