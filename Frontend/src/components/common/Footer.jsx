@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { FiMail, FiPhone, FiMapPin, FiFacebook, FiTwitter, FiLinkedin, FiGithub } from 'react-icons/fi';
 import logo from './logo.png'
 
-export default function Footer(){
+export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
@@ -23,9 +23,6 @@ export default function Footer(){
               <ul className="footer-links">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About Us</Link></li>
-                <li><Link to="/dashboard/student">Dashboard</Link></li>
-                <li><Link to="/dashboard/student/clubs">Clubs</Link></li>
-                <li><Link to="/dashboard/student/events">Events</Link></li>
               </ul>
             </div>
 
@@ -61,7 +58,7 @@ export default function Footer(){
                 Created with ❤️ by Kavish , Tirth
               </p>
             </div>
-            
+
             <div className="footer-bottom-right">
               <div className="footer-social">
                 <a href="https://facebook.com" className="social-link" aria-label="Facebook">
